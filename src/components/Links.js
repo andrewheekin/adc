@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const LinksContainer = styled.ul`
-  font-size: 20px;
+  font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+  font-size: 19px;
+  letter-spacing: .01em;
   list-style-type: none;
   padding: 0px;
   margin: 0 0 0 10%;
-  width: 11%;  
+  width: 13%;  
   li {
-    padding-bottom: 7px;
+    padding-bottom: 11px;
   }
 `;
 
