@@ -1,23 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import projects from '../data/projects.json';
+import projects from '../data/projects-details';
 
 const Projects = styled.div`
-  margin: 15px 0 0 0;
+  margin: 0;
   font-size: 14px;
   font-family: 'avenir', 'avenir next', helvetica, arial, sans-serif;
   width: 54%;  
 `;
 
-const ProjectContainer = styled.div`
+const Container = styled.div`
   border-bottom: 1px solid #eee;
 `;
 
 const ProjectTitle = styled.h1`
   font-weight:bold;
   margin-bottom: 25px;
-  font-size: 2.3em;
+  font-size: 2.2em;
   color:#555555;
   &:hover {
     color:#000000;
@@ -47,7 +47,7 @@ const VerticalRule = styled.div`
 `;
 
 const Author = styled.div`
-  padding: 10px 0 20px;
+  padding: 0 0 30px 0;
 `;
 
 const AuthorName = styled.div`
@@ -60,7 +60,7 @@ class Home extends React.PureComponent {
   render() {
     let projectDetails = projects.map((project) => {
       return (
-        <ProjectContainer key={project.url}>
+        <Container key={project.url}>
           <ProjectLink to={project.url}>
             <ProjectTitle>{project.title}</ProjectTitle>
           </ProjectLink>
@@ -70,7 +70,7 @@ class Home extends React.PureComponent {
             <VerticalRule />
             <Date>{project.date}</Date>
           </Author>
-        </ProjectContainer>
+        </Container>
       );
     })
     return <Projects>{projectDetails}</Projects>

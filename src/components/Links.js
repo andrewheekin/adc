@@ -8,8 +8,8 @@ const LinksContainer = styled.ul`
   letter-spacing: .01em;
   list-style-type: none;
   padding: 0px;
-  margin: 0 0 0 10%;
-  width: 13%;  
+  margin: 0 0 0 9%;
+  width: 14%;  
   li {
     padding-bottom: 11px;
   }

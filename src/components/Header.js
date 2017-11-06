@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const HeaderContainer = styled.div`
+const Container = styled.div`
   font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
-  font-size: 35px;
+  font-size: 36px;
   display: flex;
   margin: 5% 23% 20px 23%;
   padding: 0 0 40px 0;
@@ -62,7 +62,7 @@ const Social = styled.ul`
 `;
 
 const Header = () =>
-  <HeaderContainer>
+  <Container>
     <HeaderLink to='/'>andrew heekin</HeaderLink>
     <Social>
       <li><a href="https://github.com/andrewheekin"><i className="fa fa-lg fa-github"></i></a></li>
@@ -70,6 +70,6 @@ const Header = () =>
       <li><a href="https://twitter.com/andrewheekin"><i className="fa fa-lg fa-twitter"></i></a></li>          
       <li><a href="mailto:andrewheekin@gmail.com"><i className="fa fa-lg fa-envelope"></i></a></li>
     </Social>
-  </HeaderContainer>
+  </Container>
 
 export default Header;
