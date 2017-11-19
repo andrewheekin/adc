@@ -24,7 +24,7 @@ const Links = () =>
   <LinksContainer>
     <li><StyledLink to='/'>Projects</StyledLink></li>      
     <li><StyledLink to='/about'>About</StyledLink></li>
-    <li><StyledLink to='/about'>Contact</StyledLink></li>
+    <li><StyledLink to='/contact'>Contact</StyledLink></li>
     <li><StyledLink to='/about'>CS</StyledLink></li>    
   </LinksContainer>
 
