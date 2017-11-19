@@ -1,5 +1,4 @@
 import React from 'react';
-import * as Prism from 'prismjs';
 import styled from 'styled-components';
 import projects from '../data/projects';
 
@@ -11,8 +10,8 @@ const Projects = styled.div`
 `;
 
 const ProjectTitle = styled.h1`
-  font-weight:bold;
-  margin-bottom: 25px;
+  font-weight: bold;
+  margin: 20px 0 25px 0;
   font-size: 2.2em;
   color:#555555;
   &:hover {
@@ -26,10 +25,6 @@ const ProjectText = styled.p`
 `;
 
 class Project extends React.PureComponent {
-  componentDidMount() {
-    Prism.highlightAll();
-  }
-
   render() {
     let name = this.props.match.params.project.replace(/-/g, '');  // remove dashes from route param
     let projectInfo = projects[name].map(x => {
@@ -44,10 +39,10 @@ class Project extends React.PureComponent {
           return (
             <pre className="language-javascript"><code className="code">
               {x[1]}
-            </code></pre>
+            </code></pre>                 
           )
         default:
-          return;
+          return null;
       }
     })
     return <Projects>{projectInfo}</Projects>

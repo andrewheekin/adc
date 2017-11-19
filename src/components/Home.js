@@ -7,7 +7,10 @@ const Projects = styled.div`
   margin: 0;
   font-size: 14px;
   font-family: 'avenir', 'avenir next', helvetica, arial, sans-serif;
-  width: 54%;  
+  width: 54%;
+  animation: fade 0.6s;
+  -webkit-animation: fade 0.6s;
+  -moz-animation: fade 0.6s;  
 `;
 
 const Container = styled.div`
@@ -16,7 +19,7 @@ const Container = styled.div`
 
 const ProjectTitle = styled.h1`
   font-weight:bold;
-  margin-bottom: 25px;
+  margin: 20px 0 25px 0;
   font-size: 2.2em;
   color:#555555;
   &:hover {
@@ -27,6 +30,9 @@ const ProjectTitle = styled.h1`
 const ProjectLink = styled(Link)`
   text-decoration: none;
   color: black;
+  &:hover {
+    text-decoration: none;    
+  }
 `;
 
 const ProjectText = styled.p`
@@ -47,7 +53,7 @@ const VerticalRule = styled.div`
 `;
 
 const Author = styled.div`
-  padding: 0 0 30px 0;
+  padding: 10px 0 30px 0;
 `;
 
 const AuthorName = styled.div`
