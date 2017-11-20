@@ -1,14 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { mobile, desktop } from '../utils/responsive';
 
 const Container = styled.div`
   font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
   font-size: 36px;
-  display: flex;
-  margin: 5% 23% 25px 23%;
-  padding: 0 0 40px 0;
   border-bottom: 1px solid #eee;
+  ${desktop} {
+    display: flex;
+    margin: 75px 20% 25px 20%;
+    padding: 0 0 40px 0;    
+  }
+  ${mobile} {
+    display: block;
+    text-align: center;
+    padding: 25px 0 40px 0;    
+  }
 `;
 
 const HeaderLink = styled(Link)`
@@ -24,6 +32,9 @@ const HeaderLink = styled(Link)`
 `;
 
 const Social = styled.ul`
+  ${mobile} {
+    padding: 10px 0 0 0;
+  }
   margin: -10px 0 0 0;
   animation: slidedown 1s, fade 0.6s;
   -webkit-animation: slidedown 1s, fade 0.6s;

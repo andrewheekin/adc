@@ -2,15 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import projects from '../data/projects-details';
+import { mobile, desktop } from '../utils/responsive';
 
 const Projects = styled.div`
-  margin: 0;
   font-size: 14px;
   font-family: 'avenir', 'avenir next', helvetica, arial, sans-serif;
-  width: 54%;
   animation: fade 0.6s;
   -webkit-animation: fade 0.6s;
-  -moz-animation: fade 0.6s;  
+  -moz-animation: fade 0.6s;
+  ${desktop} {
+    width: 60%;
+    margin: 0;    
+  }
+  ${mobile} {
+    margin: 0 10px
+  }
 `;
 
 const Container = styled.div`

@@ -4,16 +4,20 @@ import Links from './components/Links';
 import Content from './components/Content';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import { mobile, desktop } from './utils/responsive';
 
 const Container = styled.div`
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;  
+  width: 80%;
+  margin: 0 auto;
 `;
 
 const Main = styled.div`
-  display: flex;
+  ${desktop} {
+    display: flex;    
+  }
+  ${mobile} {
+    display: block;
+  }
 `;
 
 class App extends Component {

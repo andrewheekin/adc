@@ -4,12 +4,14 @@ import Home from './Home';
 import About from './About';
 import Project from './Project';
 import Contact from './Contact';
+import CS from './CS';
 
 const Content = () => (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route path="/about" component={About} />
     <Route path="/contact" component={Contact} />
+    <Route path="/cs" component={CS} />    
     <Route path="/:project" component={Project} />
   </Switch>
 );

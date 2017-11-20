@@ -1,11 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import { mobile, desktop } from '../utils/responsive';
 
 const Container = styled.div`
   font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
   font-size: .9em;
   padding: 100px 0 20px 0;
-  margin: 0 0 0 23%
+  ${desktop} {
+    margin: 0 0 0 23%    
+  }
+  ${mobile} {
+    text-align: center;
+  }
 `;
 
 const FooterLink = styled.div`
