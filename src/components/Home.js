@@ -15,7 +15,7 @@ const Projects = styled.div`
     margin: 0;    
   }
   ${mobile} {
-    margin: 0 10px
+    margin: 0 15px
   }
 `;
 

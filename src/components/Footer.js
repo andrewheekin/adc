@@ -7,7 +7,7 @@ const Container = styled.div`
   font-size: .9em;
   padding: 100px 0 20px 0;
   ${desktop} {
-    margin: 0 0 0 23%    
+    margin: 0 0 0 20%    
   }
   ${mobile} {
     text-align: center;

@@ -7,9 +7,10 @@ const LinksContainer = styled.div`
   font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
   font-size: 19px;
   letter-spacing: 0.01em;
-  padding: 0px;
+  box-sizing: border-box;
   ${desktop} {
     width: 20%;
+    padding: 0 0 0 30px;    
   }
 `;
 
@@ -20,7 +21,6 @@ const Desktop = styled.ul`
   list-style-type: none;
   margin: 0;
   padding: 0;
-
   li {
     padding-bottom: 11px;
   }

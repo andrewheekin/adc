@@ -7,8 +7,10 @@ import Footer from './components/Footer';
 import { mobile, desktop } from './utils/responsive';
 
 const Container = styled.div`
-  width: 80%;
   margin: 0 auto;
+  ${desktop} {
+    width: 90%;    
+  }
 `;
 
 const Main = styled.div`
