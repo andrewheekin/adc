@@ -13,7 +13,7 @@ const Container = styled.div`
     margin: 0px;
   }
   ${mobile} {
-    margin: 0 30px
+    text-align: center;
   }  
 `;
 

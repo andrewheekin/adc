@@ -4,12 +4,14 @@ import projects from '../data/projects';
 import { mobile, desktop } from '../utils/responsive';
 
 const Projects = styled.div`
-  margin: 0;
   font-size: 14px;
   font-family: 'avenir', 'avenir next', helvetica, arial, sans-serif;
-  width: 54%;
+  ${desktop} {
+    width: 60%;
+    margin: 0;    
+  }
   ${mobile} {
-    margin: 0 10px
+    margin: 0 30px
   }  
 `;
 
