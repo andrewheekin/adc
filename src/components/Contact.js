@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { mobile, desktop } from '../utils/responsive';
 
 const Container = styled.div`
   font-family: 'avenir', 'avenir next', helvetica, arial, sans-serif;
@@ -11,6 +12,9 @@ const Container = styled.div`
     padding: 0px;
     margin: 0px;
   }
+  ${mobile} {
+    margin: 0 30px
+  }  
 `;
 
 const Contact = () => (

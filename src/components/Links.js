@@ -31,7 +31,7 @@ const Mobile = styled.div`
     display: none;
   }
   text-align: center;
-  margin: 20px 0;
+  margin: 25px 15px;
 `;
 
 const StyledLink = styled(Link)`

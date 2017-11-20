@@ -1,12 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import projects from '../data/projects';
+import { mobile, desktop } from '../utils/responsive';
 
 const Projects = styled.div`
   margin: 0;
   font-size: 14px;
   font-family: 'avenir', 'avenir next', helvetica, arial, sans-serif;
-  width: 54%;  
+  width: 54%;
+  ${mobile} {
+    margin: 0 10px
+  }  
 `;
 
 const ProjectTitle = styled.h1`
