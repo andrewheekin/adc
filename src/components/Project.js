@@ -1,11 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import SyntaxHighlighter from 'react-syntax-highlighter/prism';
+import { okaidia } from 'react-syntax-highlighter/styles/prism';
 import projects from '../data/projects';
 import { mobile, desktop } from '../utils/responsive';
 
 const Projects = styled.div`
   font-size: 14px;
   font-family: 'avenir', 'avenir next', helvetica, arial, sans-serif;
+  animation: fade 0.6s;
+  -webkit-animation: fade 0.6s;
+  -moz-animation: fade 0.6s;  
   ${desktop} {
     width: 60%;
     margin: 0;    
@@ -33,19 +38,19 @@ const ProjectText = styled.p`
 class Project extends React.PureComponent {
   render() {
     let name = this.props.match.params.project.replace(/-/g, '');  // remove dashes from route param
-    let projectInfo = projects[name].map(x => {
+    let projectInfo = projects[name].map((x, i) => {
       switch (x[0]) {
         case 'h1':
-          return <ProjectTitle>{x[1]}</ProjectTitle>;
+          return <ProjectTitle key={i}>{x[1]}</ProjectTitle>;
         case 'p':
-          return <ProjectText>{x[1]}</ProjectText>;
+          return <ProjectText key={i}>{x[1]}</ProjectText>;
         case 'a':
-          return <a href={x[1]}>{x[2]}</a>
+          return <div key={i}><a href={x[1]}>{x[2]}</a><br/></div>;
         case 'code':
           return (
-            <pre className="language-javascript"><code className="code">
+            <SyntaxHighlighter language="javascript" key={i} style={okaidia}>            
               {x[1]}
-            </code></pre>                 
+            </SyntaxHighlighter>
           )
         default:
           return null;

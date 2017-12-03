@@ -8,6 +8,9 @@ const LinksContainer = styled.div`
   font-size: 19px;
   letter-spacing: 0.01em;
   box-sizing: border-box;
+  animation: fade 0.6s;
+  -webkit-animation: fade 0.6s;
+  -moz-animation: fade 0.6s;  
   ${desktop} {
     width: 20%;
     padding: 0 0 0 30px;    

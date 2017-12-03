@@ -9,13 +9,13 @@ export default (
       UTC timestamp works fine) to the end of the file name to trigger the browser's caching mechanism 
       into thinking a new resource is present.`],
       ['p', 'Example:'],
-      ['code', `
-      (function (m, o, c, h, i){
-        h = m.createElement(o);
-        i = m.getElementsByTagName(o)[0];
-        h.src = c + '?v=' + (new Date().getTime());
-        i.parentNode.insertBefore(h, i);
-      })(document, 'script', 'https://cdn.com/path/script.js');`],
+      ['code', 
+`(function (m, o, c, h, i){
+  h = m.createElement(o);
+  i = m.getElementsByTagName(o)[0];
+  h.src = c + '?v=' + (new Date().getTime());
+  i.parentNode.insertBefore(h, i);
+})(document, 'script', 'https://cdn.com/path/script.js');`],
     ],
     thiswebsite: [
       ['h1', `This website`],
