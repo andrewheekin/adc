@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import projects from '../data/projects-details';
+import projects from '../data/projects-overview';
 import { mobile, desktop } from '../utils/responsive';
 
 const Projects = styled.div`
@@ -15,7 +15,7 @@ const Projects = styled.div`
     margin: 0;    
   }
   ${mobile} {
-    margin: 0 30px
+    margin: 0 15px
   }
 `;
 

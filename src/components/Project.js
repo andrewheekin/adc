@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
 import { okaidia } from 'react-syntax-highlighter/styles/prism';
-import projects from '../data/projects';
+import projects from '../data/projects-data';
 import { mobile, desktop } from '../utils/responsive';
 
 const Projects = styled.div`
@@ -16,7 +16,7 @@ const Projects = styled.div`
     margin: 0;    
   }
   ${mobile} {
-    margin: 0 30px
+    margin: 0 15px
   }  
 `;
 
