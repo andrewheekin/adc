@@ -2,17 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
 import { okaidia } from 'react-syntax-highlighter/styles/prism';
-import { mobile } from '../utils/responsive';
+import { mobile, desktop } from '../utils/responsive';
 import csdata from '../data/cs-data';
 
 const Container = styled.div`
   font-family: 'avenir', 'avenir next', helvetica, arial, sans-serif;
-  width: 60%;
   animation: fade 0.6s;
   -moz-animation: fade 0.6s;
   -webkit-animation: fade 0.6s;
   ${mobile} {
     margin: 0 15px;
+  }
+  ${desktop} {
+    width: 60%;    
   }
 `;
 
@@ -39,6 +41,7 @@ const QuestionContent = styled.div`
 class CS extends React.PureComponent {
   state = {
     expand: [],
+    // expand: JSON.parse(window.localStorage.getItem('expand')) || [],  // to use with localStorage
   };
 
   handleClick = e => {
@@ -48,6 +51,7 @@ class CS extends React.PureComponent {
       // why the heck does this line make it work
       expand = [...expand];
       this.setState({ expand });
+      // window.localStorage.setItem('expand', JSON.stringify(expand));   // to use with localStorage
     }
   };
 
