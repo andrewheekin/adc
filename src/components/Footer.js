@@ -24,7 +24,7 @@ const FooterLink = styled.div`
 
 const Footer = () =>
   <Container>
-    <FooterLink><a href="http://andrewheekin.com">andrewheekin.com</a> | © 2017</FooterLink>
+    <FooterLink><a href="http://andrewheekin.com">andrewheekin.com</a> | © {new Date().getFullYear()}</FooterLink>
   </Container>
 
 export default Footer;
