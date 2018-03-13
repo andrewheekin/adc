@@ -10,10 +10,10 @@ const LinksContainer = styled.div`
   box-sizing: border-box;
   animation: fade 0.6s;
   -webkit-animation: fade 0.6s;
-  -moz-animation: fade 0.6s;  
+  -moz-animation: fade 0.6s;
   ${desktop} {
     width: 20%;
-    padding: 0 0 0 30px;    
+    padding: 0 0 0 30px;
   }
 `;
 
@@ -54,13 +54,9 @@ const Links = () => (
       <li>
         <StyledLink to="/contact">Contact</StyledLink>
       </li>
-      <li>
-        <StyledLink to="/cs">CS</StyledLink>
-      </li>
     </Desktop>
     <Mobile>
-      <StyledLink to="/">Projects</StyledLink> | <StyledLink to="/about">About</StyledLink> |{' '}
-      <StyledLink to="/contact">Contact</StyledLink> | <StyledLink to="/cs">CS</StyledLink>
+      <StyledLink to="/">Projects</StyledLink> | <StyledLink to="/about">About</StyledLink> | <StyledLink to="/contact">Contact</StyledLink>
     </Mobile>
   </LinksContainer>
 );
