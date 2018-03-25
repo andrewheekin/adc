@@ -12,10 +12,10 @@ const Projects = styled.div`
   -moz-animation: fade 0.6s;
   ${desktop} {
     width: 60%;
-    margin: 0;    
+    margin: 0;
   }
   ${mobile} {
-    margin: 0 15px
+    margin: 0 15px;
   }
 `;
 
@@ -24,12 +24,12 @@ const Container = styled.div`
 `;
 
 const ProjectTitle = styled.h1`
-  font-weight:bold;
+  font-weight: bold;
   margin: 20px 0 25px 0;
   font-size: 2.2em;
-  color:#555555;
+  color: #555555;
   &:hover {
-    color:#000000;
+    color: #000000;
   }
 `;
 
@@ -37,7 +37,7 @@ const ProjectLink = styled(Link)`
   text-decoration: none;
   color: black;
   &:hover {
-    text-decoration: none;    
+    text-decoration: none;
   }
 `;
 
@@ -54,7 +54,7 @@ const Date = styled.div`
 
 const VerticalRule = styled.div`
   display: inline;
-  border-left:1px solid #bfbfbf;
+  border-left: 1px solid #bfbfbf;
   margin: 0 15px 0 15px;
 `;
 
@@ -70,13 +70,15 @@ const AuthorName = styled.div`
 
 class Home extends React.PureComponent {
   render() {
-    let projectDetails = projects.map((project) => {
+    let projectDetails = projects.map(project => {
       return (
         <Container key={project.url}>
-          <ProjectLink to={project.url}>
+          <ProjectLink to={`/project/${project.url}`}>
             <ProjectTitle>{project.title}</ProjectTitle>
           </ProjectLink>
-          <ProjectText>{project.description} <ProjectLink to={project.url}>>></ProjectLink></ProjectText>
+          <ProjectText>
+            {project.description} <ProjectLink to={`/project/${project.url}`}>>></ProjectLink>
+          </ProjectText>
           <Author>
             <AuthorName>{project.author}</AuthorName>
             <VerticalRule />
@@ -84,8 +86,8 @@ class Home extends React.PureComponent {
           </Author>
         </Container>
       );
-    })
-    return <Projects>{projectDetails}</Projects>
+    });
+    return <Projects>{projectDetails}</Projects>;
   }
 }
 

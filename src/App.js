@@ -11,6 +11,7 @@ import Project from './components/Project';
 import Contact from './components/Contact';
 import Clickit from './components/Clickit';
 import CS from './components/CS';
+import NotFound from './components/NotFound';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -41,7 +42,9 @@ class App extends Component {
             <Route path="/contact" component={Contact} />
             <Route path="/cs" component={CS} />
             <Route path="/clickit" component={Clickit} />
-            <Route path="/:project" component={Project} />
+            <Route path="/project/:project" component={Project} />
+            {/* Finally, catch all unmatched routes */}
+            <Route component={NotFound} />
           </Switch>
         </Main>
         <Footer />
