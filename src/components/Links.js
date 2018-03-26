@@ -42,23 +42,33 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const Links = () => (
-  <LinksContainer>
-    <Desktop>
-      <li>
-        <StyledLink to="/">Projects</StyledLink>
-      </li>
-      <li>
-        <StyledLink to="/about">About</StyledLink>
-      </li>
-      <li>
-        <StyledLink to="/contact">Contact</StyledLink>
-      </li>
-    </Desktop>
-    <Mobile>
-      <StyledLink to="/">Projects</StyledLink> | <StyledLink to="/about">About</StyledLink> | <StyledLink to="/contact">Contact</StyledLink>
-    </Mobile>
-  </LinksContainer>
-);
+class Links extends React.Component {
+  render() {
+    return (
+      <LinksContainer>
+        <Desktop>
+          <li>
+            <StyledLink to="/">Projects</StyledLink>
+          </li>
+          <li>
+            <StyledLink to="/about">About</StyledLink>
+          </li>
+          <li>
+            <StyledLink to="/contact">Contact</StyledLink>
+          </li>
+          {this.props.isAuthenticated && (
+            <li>
+              <div onClick={this.props.handleLogout}>Logout</div>
+            </li>
+          )}
+        </Desktop>
+        <Mobile>
+          <StyledLink to="/">Projects</StyledLink> | <StyledLink to="/about">About</StyledLink> |{' '}
+          <StyledLink to="/contact">Contact</StyledLink>
+        </Mobile>
+      </LinksContainer>
+    );
+  }
+}
 
 export default Links;
