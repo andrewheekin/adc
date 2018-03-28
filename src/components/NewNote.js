@@ -7,7 +7,6 @@ import { EditorState, convertToRaw } from 'draft-js';
 import RichEditor from '../components/RichEditor';
 import LoaderButton from '../components/LoaderButton';
 import { s3Upload } from '../utils/awsLib';
-import config from '../config';
 import './NewNote.css';
 
 const Input = styled.input`
@@ -46,7 +45,7 @@ export default class NewNote extends Component {
     event.preventDefault();
     const content = JSON.stringify(convertToRaw(this.state.initialState));
 
-    if (this.state.file && this.state.file.size > config.MAX_ATTACHMENT_SIZE) {
+    if (this.state.file && this.state.file.size > process.env.REACT_APP_MAX_ATTACHMENT_SIZE) {
       alert('Please pick a file smaller than 5MB');
       return;
     }

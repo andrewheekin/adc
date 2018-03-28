@@ -7,7 +7,6 @@ import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'dr
 import LoaderButton from '../components/LoaderButton';
 import RichEditor from '../components/RichEditor';
 import { s3Upload } from '../utils/awsLib';
-import config from '../config';
 
 const Input = styled.input`
   border: 1px solid grey;
@@ -52,7 +51,7 @@ export default class Note extends Component {
 
     let attachment;
 
-    if (this.state.file && this.state.file.size > config.MAX_ATTACHMENT_SIZE)
+    if (this.state.file && this.state.file.size > process.env.REACT_APP_MAX_ATTACHMENT_SIZE)
       return alert('Please pick a file smaller than 5MB');
 
     this.setState({ isLoading: true });
