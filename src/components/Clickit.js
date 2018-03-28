@@ -57,6 +57,7 @@ class Clickit extends React.Component {
     let page = await response.text();
     let anchorTags = page.match(/<a.*<\/a>/g);
     let hrefs = anchorTags.map(a => a.match(/http.*"/g)[0]);
+    console.log(hrefs)
   }
 
   render() {

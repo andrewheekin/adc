@@ -3,6 +3,7 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import styled from 'styled-components';
 import { mobile, desktop } from './utils/responsive';
+import { checkAuth } from './utils/awsLib';
 import AppliedRoute from './components/AppliedRoute';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import UnauthenticatedRoute from './components/UnauthenticatedRoute';
@@ -45,11 +46,8 @@ class App extends React.Component {
   };
 
   async componentDidMount() {
-    try {
-      if (await Auth.currentSession()) this.userHasAuthenticated(true);
-    } catch (e) {
-      if (e !== 'No current user') alert(e);
-    }
+    if (!await checkAuth()) return;
+    this.userHasAuthenticated(true)
     this.setState({ isAuthenticating: false });
   }
 
@@ -68,7 +66,6 @@ class App extends React.Component {
       isAuthenticated: this.state.isAuthenticated,
       userHasAuthenticated: this.userHasAuthenticated,
     };
-    console.log('in app', authStatus)
 
     return (
       <Container>

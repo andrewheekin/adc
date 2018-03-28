@@ -3,7 +3,7 @@ import { API, Storage } from 'aws-amplify';
 import styled from 'styled-components';
 import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import debounce from 'lodash.debounce';
-import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import LoaderButton from '../components/LoaderButton';
 import RichEditor from '../components/RichEditor';
 import { s3Upload } from '../utils/awsLib';

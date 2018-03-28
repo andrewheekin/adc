@@ -57,9 +57,14 @@ class Links extends React.Component {
             <StyledLink to="/contact">Contact</StyledLink>
           </li>
           {this.props.isAuthenticated && (
-            <li>
-              <div onClick={this.props.handleLogout}>Logout</div>
-            </li>
+            <div>
+              <li>
+                <StyledLink to="/notes">Notes</StyledLink>
+              </li>
+              <li>
+                <div onClick={this.props.handleLogout}>Logout</div>
+              </li>
+            </div>
           )}
         </Desktop>
         <Mobile>

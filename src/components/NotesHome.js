@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { API } from 'aws-amplify';
-import { PageHeader, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { ListGroup } from 'react-bootstrap';
 import styled from 'styled-components';
+import { checkAuth } from '../utils/awsLib';
 
 const Container = styled.div`
   padding: 80px 0;
@@ -10,29 +11,28 @@ const Container = styled.div`
 `;
 
 export default class NotesHome extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isLoading: true,
-      notes: [],
-    };
-  }
+  state = {
+    isLoading: true,
+    isAuthenticated: false,
+    notes: [],
+  };
 
   async componentDidMount() {
-    console.log('in noteshome', this.props)
-    if (!this.props.isAuthenticated) return;
+    if (!await checkAuth()) return;
+    this.setState({ isAuthenticated: true });
 
-    try {
-      const results = await API.get('notes', '/notes');
-      console.log('sup', results)
-      this.setState({ notes: results });
-    } catch (e) {
-      alert(e);
-    }
-
+    await this.fetchNotes();
     this.setState({ isLoading: false });
   }
+
+  fetchNotes = async () => {
+    try {
+      const results = await API.get('notes', '/notes');
+      this.setState({ notes: results });
+    } catch (e) {
+      if (process.env.NODE_ENV === 'development') console.error('NotesHome fetchNotes Error:', e);
+    }
+  };
 
   handleNoteClick = event => {
     event.preventDefault();
@@ -76,6 +76,6 @@ export default class NotesHome extends Component {
   }
 
   render() {
-    return <div className="Home">{this.props.isAuthenticated ? this.renderNotes() : this.renderLander()}</div>;
+    return <div className="Home">{this.state.isAuthenticated ? this.renderNotes() : this.renderLander()}</div>;
   }
 }

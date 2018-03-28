@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
+import { Editor, RichUtils } from 'draft-js';
 import './RichEditor.css';
 import './Draft.css';
 
