@@ -6,6 +6,7 @@
     "aws-amplify": "^0.2.11",
     "draft-js": "^0.10.5",
     "lodash.debounce": "^4.0.8",
+    "mixpanel-browser": "^2.19.0",
     "prop-types": "^15.6.1",
     "react": "^16.0.0",
     "react-bootstrap": "^0.32.1",

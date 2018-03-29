@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom';
 import Amplify from 'aws-amplify';
+import mixpanel from 'mixpanel-browser';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './global.css';
@@ -30,11 +31,13 @@ Amplify.configure({
   },
 });
 
+mixpanel.init(process.env.REACT_APP_MIXPANEL);
+
 ReactDOM.render(
   <Router>
     <App />
-  </Router>
-  , document.getElementById('root')
+  </Router>,
+  document.getElementById('root')
 );
 
 registerServiceWorker();

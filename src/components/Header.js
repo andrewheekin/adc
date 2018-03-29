@@ -9,7 +9,7 @@ const Container = styled.div`
   border-bottom: 1px solid #eee;
   ${desktop} {
     display: flex;
-    margin: 75px 20% 25px 20%;
+    margin: 55px 20% 20px 20%;
     padding: 0 0 40px 0;    
   }
   ${mobile} {
