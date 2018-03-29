@@ -99,7 +99,7 @@ export default class NotesHome extends Component {
   renderNote(note) {
     // TODO: find a cleaner more efficient way to return the first 120 chars
     // (maybe just take one block then max 2 if first is < 120 chars)
-    const { blocks } = JSON.parse(note.content);
+    const blocks = JSON.parse(note.content).blocks.slice(0,2);
     const preview = blocks.reduce((x, y) => {
       if (x.length < 120) return `${x} ${y.text.trim()}`;
       else return x;
