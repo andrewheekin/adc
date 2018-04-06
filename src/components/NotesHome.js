@@ -27,29 +27,33 @@ const Projects = styled.div`
 `;
 
 const Section = styled.div`
-  border-bottom: 1px solid #eee;
-  padding: 15px 0 5px;
+  padding: 5px 0;
 `;
 
-const ProjectTitle = styled.h1`
+const ProjectTitle = styled.div`
   font-weight: bold;
-  margin: 0 0 5px;
-  font-size: 1.5em;
+  margin: 0 6px 0 0;
+  font-size: 1.1em;
   color: #555555;
   &:hover {
     color: #000000;
   }
 `;
 
-const ProjectText = styled.p`
-  font-size: 1.1em;
-  line-height: 1.5;
-  margin: 0 0 5px;
+const ProjectText = styled.div`
+  display: flex;
+  font-size: 1em;
+  line-height: 1em;
 `;
 
 const Created = styled.div`
   color: #bfbfbf;
-  font-size: 1em;
+  font-size: 0.9em;
+`;
+
+const New = styled.div`
+  font-size: 1.1em;
+  margin-top: 3px;
 `;
 
 export default class NotesHome extends Component {
@@ -99,7 +103,7 @@ export default class NotesHome extends Component {
   renderNote(note) {
     // TODO: find a cleaner more efficient way to return the first 120 chars
     // (maybe just take one block then max 2 if first is < 120 chars)
-    const blocks = JSON.parse(note.content).blocks.slice(0,2);
+    const blocks = JSON.parse(note.content).blocks.slice(0, 2);
     const preview = blocks.reduce((x, y) => {
       if (x.length < 120) return `${x} ${y.text.trim()}`;
       else return x;
@@ -107,9 +111,10 @@ export default class NotesHome extends Component {
     const date = new Date(note.createdAt).toLocaleString();
     return (
       <Section key={note.noteId} href={`/notes/${note.noteId}`} onClick={this.handleNoteClick}>
-        <ProjectTitle>{note.tag}</ProjectTitle>
-        <ProjectText>{preview}</ProjectText>
-        <Created>Created: {date}</Created>
+        <ProjectText>
+          <ProjectTitle>{note.tag}</ProjectTitle>- {preview}
+        </ProjectText>
+        <Created>created {date}</Created>
       </Section>
     );
   }
@@ -120,9 +125,11 @@ export default class NotesHome extends Component {
         {this.state.isAuthenticated ? (
           <div>
             <div>{!this.state.isLoading && this.state.notes.map(note => this.renderNote(note))}</div>
-            <a href="/notes/new" onClick={this.handleNoteClick}>
-              <b>{'\uFF0B'}</b> Create a new note
-            </a>
+            <New>
+              <a href="/notes/new" onClick={this.handleNoteClick}>
+                <b>{'\uFF0B'}</b> Create a new note
+              </a>
+            </New>
           </div>
         ) : (
           this.renderLander()
