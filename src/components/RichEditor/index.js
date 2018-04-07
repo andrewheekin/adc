@@ -13,8 +13,6 @@ class RichEditor extends React.Component {
 
   state = { editorState: this.props.initialState };
 
-  focus = () => this.editor.focus();
-
   handleKeyCommand = command => {
     const { editorState } = this.state;
     const newState = RichUtils.handleKeyCommand(editorState, command);
@@ -51,7 +49,6 @@ class RichEditor extends React.Component {
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
     let className = 'RichEditor-editor';
-    if (!isReadOnly) className += ' RichEditor-topborder';
     const contentState = editorState.getCurrentContent();
     if (
       !contentState.hasText() &&
@@ -74,7 +71,7 @@ class RichEditor extends React.Component {
             <InlineStyleControls editorState={editorState} onToggle={this.toggleInlineStyle} />
           </div>
         )}
-        <div className={className} onClick={this.focus}>
+        <div className={className}>
           <Editor
             readOnly={this.props.isReadOnly}
             blockStyleFn={getBlockStyle}
@@ -99,7 +96,7 @@ const styleMap = {
     backgroundColor: 'rgba(0, 0, 0, 0.05)',
     fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
     fontSize: 16,
-    padding: 2,
+    padding: 0,
   },
 };
 

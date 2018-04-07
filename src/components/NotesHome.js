@@ -27,7 +27,7 @@ const Projects = styled.div`
 `;
 
 const Section = styled.div`
-  padding: 5px 0;
+  padding: 0 0 15px;
 `;
 
 const ProjectTitle = styled.div`

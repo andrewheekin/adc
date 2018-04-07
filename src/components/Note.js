@@ -7,15 +7,61 @@ import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import LoaderButton from '../components/LoaderButton';
 import RichEditor from '../components/RichEditor';
 import { s3Upload } from '../utils/awsLib';
+import { mobile, desktop } from '../utils/responsive';
+
+
+const Container = styled.div`
+  font-size: 14px;
+  // font-family: 'avenir', 'avenir next', helvetica, arial, sans-serif;
+  animation: fade 0.6s;
+  -webkit-animation: fade 0.6s;
+  -moz-animation: fade 0.6s;  
+  ${desktop} {
+    width: 60%;
+    margin: 0;    
+  }
+  ${mobile} {
+    margin: 0 15px
+  }  
+`;
+
+const Options = styled.div`
+  display: flex;
+  margin: 5px 0 5px;
+`;
+
+const Edit = styled.div`
+  margin-right: 5px;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const Delete = styled.div`
+  margin-left: 5px;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const Saving = styled.div`
+  margin-left: 5px;
+`;
 
 const Input = styled.input`
-  border: 1px solid grey;
+  border: none;
   border-radius: 5px;
+  font-weight: bold;
+  font-size: 2em;
+  color: black;
+  &:focus {
+    outline: none;
+  }
 `;
 
 export default class Note extends Component {
   state = {
-    isLoading: null,
+    saving: null,
     isDeleting: null,
     note: null,
     initialState: EditorState.createEmpty(),
@@ -45,7 +91,7 @@ export default class Note extends Component {
     return str.length < 50 ? str : str.substr(0, 20) + '...' + str.substr(str.length - 20, str.length);
   }
 
-  saveChange = debounce(async editorState => {
+  saveChange = debounce(async ()) => {
     // only stringify and convert to raw when saving to dynamo
     const content = JSON.stringify(convertToRaw(editorState));
 
@@ -54,27 +100,28 @@ export default class Note extends Component {
     if (this.state.file && this.state.file.size > process.env.REACT_APP_MAX_ATTACHMENT_SIZE)
       return alert('Please pick a file smaller than 5MB');
 
-    this.setState({ isLoading: true });
+    this.setState({ saving: true });
 
     try {
       if (this.state.file) attachment = await s3Upload(this.state.file);
 
       await API.put('notes', `/notes/${this.props.match.params.id}`, {
         body: {
-          ...this.state.note,
-          content,
           tag: this.state.tag,
+          content,
           attachment: attachment || this.state.note.attachment,
         },
       });
     } catch (e) {
       alert(e);
+    } finally {
+      this.setState({ saving: false });
     }
-    this.setState({ isLoading: false });
   }, 1000);
 
   handleTagChange = event => {
     this.setState({ tag: event.target.value });
+    this.saveChange();
   };
 
   handleFileChange = event => {
@@ -103,12 +150,17 @@ export default class Note extends Component {
   };
 
   render() {
-    const { editing, initialState } = this.state;
+    const { editing, initialState, saving } = this.state;
     return (
-      <div style={{ paddingBottom: '15px' }}>
+      <Container>
         {this.state.note && (
-          <form>
-            <Input type="text" value={this.state.tag} onChange={this.handleTagChange} />
+          <div>
+            <Input type="text" value={this.state.tag} onChange={this.handleTagChange} readOnly={!editing} />
+            <Options>
+              <Edit onClick={this.handleClickEdit}>{editing ? 'done' : 'edit'}</Edit>|
+              <Delete onClick={this.handleDelete}>{this.state.isDeleting ? 'deleting...' : 'delete'}</Delete>
+              <Saving>{saving && 'SAVING'}</Saving>
+            </Options>
             <FormGroup controlId="content">
               <RichEditor isReadOnly={!editing} saveChange={this.saveChange} initialState={initialState} />
             </FormGroup>
@@ -126,27 +178,9 @@ export default class Note extends Component {
               {!this.state.note.attachment && <ControlLabel>Attachment</ControlLabel>}
               <FormControl onChange={this.handleFileChange} type="file" />
             </FormGroup>
-            <LoaderButton
-              block
-              bsStyle="primary"
-              bsSize="large"
-              isLoading={this.state.isLoading}
-              onClick={this.handleClickEdit}
-              text={editing ? 'Finish' : 'Edit'}
-              loadingText="Saving…"
-            />
-            <LoaderButton
-              block
-              bsStyle="danger"
-              bsSize="large"
-              isLoading={this.state.isDeleting}
-              onClick={this.handleDelete}
-              text="Delete"
-              loadingText="Deleting…"
-            />
-          </form>
+          </div>
         )}
-      </div>
+      </Container>
     );
   }
 }
