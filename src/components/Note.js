@@ -9,20 +9,19 @@ import RichEditor from '../components/RichEditor';
 import { s3Upload } from '../utils/awsLib';
 import { mobile, desktop } from '../utils/responsive';
 
-
 const Container = styled.div`
   font-size: 14px;
   // font-family: 'avenir', 'avenir next', helvetica, arial, sans-serif;
   animation: fade 0.6s;
   -webkit-animation: fade 0.6s;
-  -moz-animation: fade 0.6s;  
+  -moz-animation: fade 0.6s;
   ${desktop} {
     width: 60%;
-    margin: 0;    
+    margin: 0;
   }
   ${mobile} {
-    margin: 0 15px
-  }  
+    margin: 0 15px;
+  }
 `;
 
 const Options = styled.div`
@@ -64,7 +63,7 @@ export default class Note extends Component {
     saving: null,
     isDeleting: null,
     note: null,
-    initialState: EditorState.createEmpty(),
+    editorState: EditorState.createEmpty(),
     tag: 'New Note',
     attachmentURL: null,
     editing: false,
@@ -76,12 +75,12 @@ export default class Note extends Component {
       let attachmentURL;
       const note = await API.get('notes', `/notes/${this.props.match.params.id}`);
       const { content, tag, attachment } = note;
-      const initialState = content
+      const editorState = content
         ? EditorState.createWithContent(convertFromRaw(JSON.parse(content)))
         : EditorState.createEmpty();
 
       if (attachment) attachmentURL = await Storage.vault.get(attachment);
-      this.setState({ note, tag, initialState, attachmentURL });
+      this.setState({ note, tag, editorState, attachmentURL });
     } catch (e) {
       alert(e);
     }
@@ -91,9 +90,10 @@ export default class Note extends Component {
     return str.length < 50 ? str : str.substr(0, 20) + '...' + str.substr(str.length - 20, str.length);
   }
 
-  saveChange = debounce(async ()) => {
-    // only stringify and convert to raw when saving to dynamo
-    const content = JSON.stringify(convertToRaw(editorState));
+  saveChange = debounce(async (tag, editorState) => {
+    // EditorState.getCurrentContent() converts an EditorState to a ContentState
+    // only stringify and convert to raw when saving to dynamo    
+    const content = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
 
     let attachment;
 
@@ -104,13 +104,8 @@ export default class Note extends Component {
 
     try {
       if (this.state.file) attachment = await s3Upload(this.state.file);
-
       await API.put('notes', `/notes/${this.props.match.params.id}`, {
-        body: {
-          tag: this.state.tag,
-          content,
-          attachment: attachment || this.state.note.attachment,
-        },
+        body: { tag, content, attachment: attachment || this.state.note.attachment },
       });
     } catch (e) {
       alert(e);
@@ -119,9 +114,14 @@ export default class Note extends Component {
     }
   }, 1000);
 
+  updateEditorState = editorState => {
+    this.saveChange(this.state.tag, editorState);
+    this.setState({ editorState });
+  };
+
   handleTagChange = event => {
+    this.saveChange(event.target.value, this.state.editorState);
     this.setState({ tag: event.target.value });
-    this.saveChange();
   };
 
   handleFileChange = event => {
@@ -150,7 +150,7 @@ export default class Note extends Component {
   };
 
   render() {
-    const { editing, initialState, saving } = this.state;
+    const { editing, editorState, saving } = this.state;
     return (
       <Container>
         {this.state.note && (
@@ -162,7 +162,7 @@ export default class Note extends Component {
               <Saving>{saving && 'SAVING'}</Saving>
             </Options>
             <FormGroup controlId="content">
-              <RichEditor isReadOnly={!editing} saveChange={this.saveChange} initialState={initialState} />
+              <RichEditor isReadOnly={!editing} editorState={editorState} updateEditorState={this.updateEditorState} />
             </FormGroup>
             {this.state.note.attachment && (
               <FormGroup>

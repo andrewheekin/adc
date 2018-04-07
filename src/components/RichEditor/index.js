@@ -7,44 +7,38 @@ import './Draft.css';
 class RichEditor extends React.Component {
   static propTypes = {
     isReadOnly: PropTypes.bool.isRequired,
-    initialState: PropTypes.object.isRequired,
-    saveChange: PropTypes.func.isRequired,
+    editorState: PropTypes.object.isRequired,
+    updateEditorState: PropTypes.func.isRequired,
   };
 
-  state = { editorState: this.props.initialState };
-
   handleKeyCommand = command => {
-    const { editorState } = this.state;
-    const newState = RichUtils.handleKeyCommand(editorState, command);
+    const newState = RichUtils.handleKeyCommand(this.props.editorState, command);
     if (newState) {
-      this.setState({ editorState: newState });
+      this.props.updateEditorState(newState);
       return true;
     }
     return false;
   };
 
   onChange = editorState => {
-    const content = editorState.getCurrentContent();
-    this.props.saveChange(content);
-    this.setState({ editorState });
+    this.props.updateEditorState(editorState);
   };
 
   onTab = e => {
     const maxDepth = 4;
-    this.setState({ editorState: RichUtils.onTab(e, this.state.editorState, maxDepth) });
+    this.props.updateEditorState(RichUtils.onTab(e, this.props.editorState, maxDepth));
   };
 
   toggleBlockType = blockType => {
-    this.setState({ editorState: RichUtils.toggleBlockType(this.state.editorState, blockType) });
+    this.props.updateEditorState(RichUtils.toggleBlockType(this.props.editorState, blockType));
   };
 
   toggleInlineStyle = inlineStyle => {
-    this.setState({ editorState: RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle) });
+    this.props.updateEditorState(RichUtils.toggleInlineStyle(this.props.editorState, inlineStyle));
   };
 
   render() {
-    const { editorState } = this.state;
-    const { isReadOnly } = this.props;
+    const { isReadOnly, editorState } = this.props;
 
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
