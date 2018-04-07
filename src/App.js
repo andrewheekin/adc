@@ -17,7 +17,6 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import NotesHome from './components/NotesHome';
 import Note from './components/Note';
-import NewNote from './components/NewNote';
 import Contact from './components/Contact';
 import Clickit from './components/Clickit';
 import CS from './components/CS';
@@ -82,7 +81,6 @@ class App extends React.Component {
             <UnauthenticatedRoute path="/login" exact component={Login} props={authStatus} />
             <UnauthenticatedRoute path="/signup" exact component={Signup} props={authStatus} />
             <AppliedRoute path="/notes" exact component={NotesHome} props={authStatus} />
-            <AuthenticatedRoute path="/notes/new" exact component={NewNote} props={authStatus} />
             <AuthenticatedRoute path="/notes/:id" exact component={Note} props={authStatus} />
             {/* Finally, catch all unmatched routes */}
             <Route component={NotFound} />

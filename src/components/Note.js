@@ -175,7 +175,6 @@ export default class Note extends Component {
               </FormGroup>
             )}
             <FormGroup controlId="file">
-              {!this.state.note.attachment && <ControlLabel>Attachment</ControlLabel>}
               <FormControl onChange={this.handleFileChange} type="file" />
             </FormGroup>
           </div>

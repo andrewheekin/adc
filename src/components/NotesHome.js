@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { API } from 'aws-amplify';
+import { ContentState, convertToRaw } from 'draft-js';
 import { ListGroup } from 'react-bootstrap';
 import styled from 'styled-components';
 import { checkAuth } from '../utils/awsLib';
@@ -52,8 +53,12 @@ const Created = styled.div`
 `;
 
 const New = styled.div`
+  color: #6a6aeb;
   font-size: 1.1em;
   margin-top: 3px;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export default class NotesHome extends Component {
@@ -84,6 +89,17 @@ export default class NotesHome extends Component {
     event.preventDefault();
     this.props.history.push(event.currentTarget.getAttribute('href'));
   };
+
+  createNote = async () => {
+    try {
+      const content = JSON.stringify(convertToRaw(ContentState.createFromText('')));      
+      const response = await API.post('notes', '/notes', { body: { content, tag: 'New Note'} });
+      this.props.history.push(`/notes/${response.noteId}`)
+    } catch (e) {
+      console.log(e);
+      this.props.history.push('/notes')
+    }
+  }
 
   renderLander() {
     return (
@@ -125,10 +141,8 @@ export default class NotesHome extends Component {
         {this.state.isAuthenticated ? (
           <div>
             <div>{!this.state.isLoading && this.state.notes.map(note => this.renderNote(note))}</div>
-            <New>
-              <a href="/notes/new" onClick={this.handleNoteClick}>
-                <b>{'\uFF0B'}</b> Create a new note
-              </a>
+            <New onClick={this.createNote}>
+              <b>{'\uFF0B'}</b> Create a new note
             </New>
           </div>
         ) : (
